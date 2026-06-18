@@ -39,7 +39,7 @@ With Sally Choi as the baseline (1x):
 | Participant | Actual Pay | Implied Power | Relative to Sally | Why |
 |---|---|---|---|---|
 | Focus Features (distributor) | $102,500,000 | 97,500,000 | 24,375x | Monopoly on wide theatrical distribution. Only path to mass audience. Entered after film was proven at TIFF — zero creative risk, pure market leverage. |
-| Curry Barker (writer/director/editor) | $5,000,000 | 4,920,000 | 1,230x | Irreplaceable creative — wrote, directed, AND edited. The film is his vision. But power only materialized after success; pre-TIFF he was a YouTuber with no leverage. |
+| Curry Barker (writer/director/editor) | $5,000,000 | 4,750,000 | 1,188x | Irreplaceable creative — wrote, directed, AND edited. The film is his vision. But power only materialized after success; pre-TIFF he was a YouTuber with no leverage. |
 | James Harris (producer) | $5,000,000 | 4,700,000 | 1,175x | Discovered Barker, initiated the project, assembled financing. Owns the IP rights that Focus paid $14.5M for. Without him there's no deal. |
 | Other Producers (Johnson, Mercuri, Viaris) | $3,750,000 | 2,950,000 | 738x | Financing + production infrastructure. Mercuri's Capstone provided capital access; capital is scarce in indie film. They bore real financial downside risk. |
 | Other paid crew (~15 people) | $60,000 | 15,000 | 3.8x | Collective bargaining of 15 bodies — more people = slightly more leverage than any individual crew member alone. But each is individually replaceable. |
@@ -88,7 +88,7 @@ A common defense: "Sally didn't take risk, so she doesn't deserve more." We can 
 
 | Participant | Amount at Stake | P(failure) | Expected Loss | Surplus Captured | Return per $1 Risked |
 |---|---|---|---|---|---|
-| Curry Barker | $80,000 (opportunity cost) | 85% | $68,000 | $4,920,000 | **$72.35** |
+| Curry Barker | $250,000 (opportunity cost) | 85% | $212,500 | $4,750,000 | **$22.35** |
 | Focus Features | $44,500,000 (acquisition + P&A) | 15% | $6,675,000 | $97,500,000 | **$14.61** |
 | James Harris | $750,000 (capital invested) | 85% | $637,500 | $4,700,000 | **$7.37** |
 | Other Producers | $750,000 (capital invested) | 85% | $637,500 | $2,950,000 | **$4.63** |
@@ -99,13 +99,13 @@ A common defense: "Sally didn't take risk, so she doesn't deserve more." We can 
 
 ### What this shows
 
-1. **Barker** got the best risk-adjusted return ($72/\$1) — but he was genuinely irreplaceable
+1. **Barker** got the best risk-adjusted return ($22/\$1) — but he was genuinely irreplaceable
 2. **Focus** got $14.61/\$1 while taking the *least* risk (entered post-proof)
 3. **Harris** (the actual risk-taker who bet $750K) got only $7.37/\$1 — half of Focus's return
 4. **Sally** got **$0.94 per $1 risked** — she literally didn't break even on a risk-adjusted basis
 
 If risk justified reward, everyone's return-per-dollar would be similar. Instead:
-- Sally's return-on-risk is **77x worse** than Barker's
+- Sally's return-on-risk is **24x worse** than Barker's
 - The producers took the biggest gamble and got **half** Focus's risk-adjusted return
 - The "she didn't take risk" argument explains maybe a 2-3x gap, not 24,375x
 
@@ -136,7 +136,7 @@ The implied bargaining power calculation is exact given the inputs — the uncer
 | Participant | Actual Pay | Outside Option | Justification |
 |---|---|---|---|
 | **ABOVE THE LINE** | | | |
-| Curry Barker (writer/director/editor) | $5,000,000 | $80,000 | Actual: estimated largest share of $14.5M acquisition. Outside: was a YouTuber with no film credits pre-Obsession. |
+| Curry Barker (writer/director/editor) | $5,000,000 | $250,000 | Actual: estimated largest share of $14.5M acquisition. Outside: "that's a bad idea" YouTube channel had ~500K-1M subs pre-TIFF, earning ~$200-400K/yr in ad revenue + brand deals. |
 | James Harris (producer) | $5,000,000 | $300,000 | Actual: estimated share of acquisition. Outside: established indie producer at Tea Shop Productions, active slate. |
 | Other Producers (Johnson, Mercuri, Viaris) | $3,750,000 | $800,000 | Actual: remainder of acquisition minus production costs. Outside: Mercuri runs Capstone (finances 4-5 films/yr), Viaris runs Under the Shell. Industry veterans with deal flow. |
 | **CAST** | | | |

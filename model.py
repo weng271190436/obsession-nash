@@ -57,7 +57,7 @@ participants = {
     # --- ABOVE THE LINE ---
     "Curry Barker (writer/director/editor)": {
         "actual_pay": 5_000_000,  # estimated share of acquisition + backend deal on new project
-        "outside_option": 80_000,  # YouTube income + could direct another micro-budget
+        "outside_option": 250_000,  # ~500K-1M subs YouTube channel ("that's a bad idea"), $200-400K/yr revenue
         "bargaining_power": 10,    # irreplaceable - wrote, directed, edited. THE creative vision
         "days": 180,               # writing + shooting + editing + reshoots (~6 months)
         "category": "above_the_line",
