@@ -65,7 +65,7 @@ participants = {
     },
     "James Harris (producer)": {
         "actual_pay": 5_000_000,  # estimated share of $14.5M acquisition
-        "outside_option": 50_000,  # could produce another indie
+        "outside_option": 300_000,  # established indie producer, active slate at Tea Shop
         "bargaining_power": 7,     # found Barker, assembled financing, took financial risk
         "days": 240,
         "category": "above_the_line",
@@ -73,11 +73,11 @@ participants = {
     },
     "Other Producers (Johnson, Mercuri, Viaris)": {
         "actual_pay": 3_750_000,  # remaining share of acquisition ($14.5M - $750K prod - Barker - Harris)
-        "outside_option": 120_000,  # combined outside options (they have other projects)
+        "outside_option": 800_000,  # Mercuri runs Capstone (4-5 films/yr), Viaris runs Under the Shell
         "bargaining_power": 5,
         "days": 200,
         "category": "above_the_line",
-        "notes": "Capstone Studios, Under the Shell. Financing + production support.",
+        "notes": "Capstone Studios (financing co, 4-5 films/yr), Under the Shell. Industry veterans.",
     },
 
     # --- CAST (SAG Indie rates) ---
