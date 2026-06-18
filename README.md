@@ -8,34 +8,40 @@ When an indie film becomes a massive hit, how *should* the money be split? We us
 
 ## The Model
 
+The pie is **net profit** — revenue minus all real costs (exhibitor cut, production, marketing). Transfers between parties (like the acquisition price) are part of the *distribution*, not costs.
+
+```
+Net value = $294M box office - $147M exhibitor cut - $30M marketing - $750K production = $116.25M
+```
+
 Each participant gets:
 
 ```
-pay_i = outside_option_i + (power_i / total_power) × surplus
+pay_i = outside_option_i + (bargaining_power_i / total_bargaining_power) × surplus
 ```
 
 Where:
 - **outside_option**: what they'd earn doing something else (their walk-away value)
-- **power**: bargaining weight based on replaceability, risk borne, and contribution uniqueness
-- **surplus**: total pie minus the sum of all outside options
+- **bargaining_power**: weight based on replaceability, risk borne, and contribution uniqueness
+- **surplus**: net value minus the sum of all outside options
 
 ## Key Findings
 
 | Participant | Actual Pay | Nash Fair Pay | Ratio |
 |---|---|---|---|
-| Sally Choi (art director) | $9,000 | $1,280,075 | 142x underpaid |
-| Inde Navarrette (lead actress) | $20,000 | $2,562,149 | 128x underpaid |
-| Curry Barker (writer/director/editor) | $100,000 | $8,580,498 | 86x underpaid |
-| All crew combined | $101,000 | $7,724,448 | 76x underpaid |
-| Focus Features (distributor) | $102,500,000 | $102,500,710 | 1.0x — matches |
+| Sally Choi (art director) | $9,000 | $277,396 | 31x underpaid |
+| Inde Navarrette (lead actress) | $20,000 | $556,792 | 28x underpaid |
+| Curry Barker (writer/director/editor) | $100,000 | $1,895,972 | 19x underpaid |
+| All crew combined | $101,000 | $1,708,375 | 17x underpaid |
+| Focus Features (distributor) | $102,500,000 | $102,499,529 | 1.0x — matches |
 
 ### Implied Bargaining Power
 
-Focus's bargaining power is set to **114.7** (reverse-engineered from actual outcome) vs everyone else combined at **46**.
+Focus's bargaining power is set to **536.9** (reverse-engineered from actual outcome) vs everyone else combined at **46**.
 
-- Focus is **76x** Sally's power
-- Focus is **11x** Barker's power (the guy who wrote, directed, and edited it)
-- Focus captures **71.4%** of all surplus
+- Focus is **358x** Sally's power
+- Focus is **54x** Barker's power (the guy who wrote, directed, and edited it)
+- Focus captures **92.1%** of all surplus
 
 That's the distribution bottleneck quantified.
 

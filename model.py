@@ -30,24 +30,27 @@ TOTAL_REVENUE = 294_000_000  # worldwide box office
 EXHIBITOR_CUT = 0.50         # theaters keep ~50%
 STUDIO_REVENUE = TOTAL_REVENUE * (1 - EXHIBITOR_CUT)  # ~$147M to Focus
 
-# Focus paid $14.5M for distribution rights + marketing costs
-FOCUS_ACQUISITION = 14_500_000
-FOCUS_MARKETING = 30_000_000  # estimated P&A for wide release
-FOCUS_TOTAL_COST = FOCUS_ACQUISITION + FOCUS_MARKETING
+# Real costs (actual resources consumed, not transfers between parties)
+PRODUCTION_BUDGET = 750_000      # original production cost
+MARKETING_SPEND = 30_000_000     # estimated P&A for wide release
 
-# Production budget
-PRODUCTION_BUDGET = 750_000
+TOTAL_REAL_COSTS = PRODUCTION_BUDGET + MARKETING_SPEND  # $30.75M
 
-# Total value created (simplified: what all parties collectively earned)
-# Focus net: studio revenue - their costs
-FOCUS_NET = STUDIO_REVENUE - FOCUS_TOTAL_COST
-# Producers got the acquisition price
-PRODUCER_NET = FOCUS_ACQUISITION - PRODUCTION_BUDGET
+# The acquisition price ($14.5M) is a TRANSFER from Focus to Producers,
+# not a real cost. It's how the pie gets split, not a cost of creating it.
+ACQUISITION_PRICE = 14_500_000
 
-TOTAL_SURPLUS_CREATED = STUDIO_REVENUE  # gross pie before costs
+# NET VALUE CREATED = the pie we split
+# Revenue after theaters, minus actual resources consumed
+NET_VALUE = STUDIO_REVENUE - TOTAL_REAL_COSTS  # ~$116.25M
 
 # ============================================================
 # PARTICIPANTS & OUTSIDE OPTIONS
+#
+# "actual_pay" = what each person actually received from the net value.
+# For crew/cast, this is their wages (paid from production budget).
+# For producers, this is acquisition price minus production costs.
+# For Focus, this is studio revenue minus acquisition minus marketing.
 # ============================================================
 
 participants = {
@@ -127,7 +130,7 @@ participants = {
         "notes": "Key creative. Center-composed 'uncomfortable' framing was collaborative.",
     },
     "Sally Choi (art director)": {
-        "actual_pay": 9_000,    # ~$300/day × ~22 days pretax (reported $6,741 after tax)
+        "actual_pay": 9_000,    # ~$300/day x ~22 days pretax (reported $6,741 after tax)
         "outside_option": 5_000,   # first major credit, one short film before this
         "bargaining_power": 1.5,   # also did set dressing, graphic design, BG acting
         "days": 22,
@@ -168,9 +171,9 @@ participants = {
 
     # --- DISTRIBUTION (post-production entrants) ---
     "Focus Features (distributor)": {
-        "actual_pay": FOCUS_NET,  # they keep the distribution profit
+        "actual_pay": 102_500_000,  # studio_revenue - acquisition - marketing
         "outside_option": 5_000_000,  # could've bought a different TIFF film
-        "bargaining_power": 114.7,  # implied from actual outcome — distribution bottleneck
+        "bargaining_power": 536.9,  # implied from actual outcome on net profit pie
         "days": 365,
         "category": "distribution",
         "notes": "Paid $14.5M acquisition + ~$30M marketing. Massive leverage.",
@@ -215,13 +218,49 @@ def compute_nash_bargaining(participants, total_pie):
     return results, surplus, total_outside
 
 
+def compute_implied_bargaining_power(participants, total_pie, target_name):
+    """
+    Reverse-engineer a participant's implied bargaining power from their actual pay.
+    
+    Given the actual outcome, what bargaining_power would produce that result?
+    
+    Formula:
+      actual_pay = outside_option + (bp_target / total_bp) * surplus
+      Solving: bp_target = r * total_bp_others / (1 - r)
+      where r = (actual_pay - outside_option) / surplus
+    """
+    total_outside = sum(p["outside_option"] for p in participants.values())
+    surplus = total_pie - total_outside
+    
+    target = participants[target_name]
+    target_surplus_captured = target["actual_pay"] - target["outside_option"]
+    r = target_surplus_captured / surplus  # proportion of surplus captured
+    
+    total_bp_others = sum(
+        p["bargaining_power"] for name, p in participants.items() if name != target_name
+    )
+    
+    # bp_target = r * total_bp_others / (1 - r)
+    implied_bp = r * total_bp_others / (1 - r)
+    
+    return {
+        "implied_bargaining_power": implied_bp,
+        "original_bargaining_power": target["bargaining_power"],
+        "multiplier_vs_original": implied_bp / target["bargaining_power"],
+        "surplus_share_pct": r * 100,
+        "surplus_captured": target_surplus_captured,
+        "total_bp_others": total_bp_others,
+    }
+
+
 def print_results(results, surplus, total_outside, total_pie):
     print("=" * 100)
     print(f"NASH BARGAINING MODEL: OBSESSION (2025)")
     print(f"=" * 100)
-    print(f"\nTotal pie (studio revenue after exhibitor cut): ${total_pie:,.0f}")
-    print(f"Sum of all outside options:                      ${total_outside:,.0f}")
-    print(f"Surplus to distribute:                           ${surplus:,.0f}")
+    print(f"\nTotal net value (pie to split): ${total_pie:,.0f}")
+    print(f"  = $294M box office - $147M exhibitor cut - $30M marketing - $750K production")
+    print(f"Sum of all outside options:      ${total_outside:,.0f}")
+    print(f"Surplus to distribute:           ${surplus:,.0f}")
     print()
     
     # Group by category
@@ -288,45 +327,9 @@ def print_results(results, surplus, total_outside, total_pie):
     print(f"   Distribution actual:  ${dist_actual:>12,.0f}  →  Nash: ${dist_nash:>12,.0f}  ({dist_nash/dist_actual:.1f}x)")
 
 
-def compute_implied_bargaining_power(participants, total_pie, target_name):
-    """
-    Reverse-engineer a participant's implied bargaining power from their actual pay.
-    
-    Given the actual outcome, what bargaining_power would produce that result?
-    
-    Formula:
-      actual_pay = outside_option + (bp_target / total_bp) * surplus
-      Solving: bp_target = r * total_bp_others / (1 - r)
-      where r = (actual_pay - outside_option) / surplus
-    """
-    total_outside = sum(p["outside_option"] for p in participants.values())
-    surplus = total_pie - total_outside
-    
-    target = participants[target_name]
-    target_surplus_captured = target["actual_pay"] - target["outside_option"]
-    r = target_surplus_captured / surplus  # proportion of surplus captured
-    
-    total_bp_others = sum(
-        p["bargaining_power"] for name, p in participants.items() if name != target_name
-    )
-    
-    # bp_target = r * total_bp_others / (1 - r)
-    implied_bp = r * total_bp_others / (1 - r)
-    
-    return {
-        "implied_bargaining_power": implied_bp,
-        "original_bargaining_power": target["bargaining_power"],
-        "multiplier_vs_original": implied_bp / target["bargaining_power"],
-        "surplus_share_pct": r * 100,
-        "surplus_captured": target_surplus_captured,
-        "total_bp_others": total_bp_others,
-    }
-
-
 if __name__ == "__main__":
-    # The "pie" we're splitting is the studio revenue (after theaters take their cut)
-    # This is what Focus Features + producers + everyone shares
-    total_pie = STUDIO_REVENUE
+    # The "pie" we're splitting is NET VALUE: revenue minus all real costs
+    total_pie = NET_VALUE
     
     results, surplus, total_outside = compute_nash_bargaining(participants, total_pie)
     print_results(results, surplus, total_outside, total_pie)
