@@ -36,24 +36,24 @@ This is the surplus each person captured in practice. The ratio between any two 
 
 With Sally Choi as the baseline (1x):
 
-| Participant | Actual Pay | Implied Power | Relative to Sally |
-|---|---|---|---|
-| Focus Features (distributor) | $102,500,000 | 97,500,000 | 24,375x |
-| Curry Barker (writer/director/editor) | $5,000,000 | 4,920,000 | 1,230x |
-| James Harris (producer) | $5,000,000 | 4,700,000 | 1,175x |
-| Other Producers (Johnson, Mercuri, Viaris) | $3,750,000 | 2,950,000 | 738x |
-| Other paid crew (~15 people) | $60,000 | 15,000 | 3.8x |
-| Michael Johnston (lead - Bear) | $25,000 | 10,000 | 2.5x |
-| Inde Navarrette (lead - Nikki) | $20,000 | 8,000 | 2.0x |
-| Sally Choi (art director) | $9,000 | 4,000 | 1.0x |
-| Taylor Clemons (cinematographer) | $12,000 | 2,000 | 0.5x |
-| Vivian Gray (production designer) | $10,000 | 2,000 | 0.5x |
-| Rock Burwell (composer) | $8,000 | 2,000 | 0.5x |
-| Cooper Tomlinson (supporting - Ian) | $10,000 | 2,000 | 0.5x |
-| Megan Lawless (supporting - Sarah) | $10,000 | 2,000 | 0.5x |
-| Volunteer crew (~10 people) | $2,000 | 2,000 | 0.5x |
-| Andy Richter (supporting - Carter) | $15,000 | 0 | 0x |
-| Jason Blum / Blumhouse (exec producer) | $2,000,000 | 0 | 0x |
+| Participant | Actual Pay | Implied Power | Relative to Sally | Why |
+|---|---|---|---|---|
+| Focus Features (distributor) | $102,500,000 | 97,500,000 | 24,375x | Monopoly on wide theatrical distribution. Only path to mass audience. Entered after film was proven at TIFF — zero creative risk, pure market leverage. |
+| Curry Barker (writer/director/editor) | $5,000,000 | 4,920,000 | 1,230x | Irreplaceable creative — wrote, directed, AND edited. The film is his vision. But power only materialized after success; pre-TIFF he was a YouTuber with no leverage. |
+| James Harris (producer) | $5,000,000 | 4,700,000 | 1,175x | Discovered Barker, initiated the project, assembled financing. Owns the IP rights that Focus paid $14.5M for. Without him there's no deal. |
+| Other Producers (Johnson, Mercuri, Viaris) | $3,750,000 | 2,950,000 | 738x | Financing + production infrastructure. Mercuri's Capstone provided capital access; capital is scarce in indie film. They bore real financial downside risk. |
+| Other paid crew (~15 people) | $60,000 | 15,000 | 3.8x | Collective bargaining of 15 bodies — more people = slightly more leverage than any individual crew member alone. But each is individually replaceable. |
+| Michael Johnston (lead - Bear) | $25,000 | 10,000 | 2.5x | Lead actor in a character-driven horror. Slightly less fungible than crew — his face is the film — but at SAG indie level, many actors would take the role. |
+| Inde Navarrette (lead - Nikki) | $20,000 | 8,000 | 2.0x | Supporting lead. Breakout performance, but at time of hiring had limited credits and weak alternatives. |
+| Sally Choi (art director) | $9,000 | 4,000 | 1.0x | First major feature credit. Also did set dressing, graphic design, and BG acting (multi-role, underpaid even for scope). Weak outside option = zero leverage. |
+| Taylor Clemons (cinematographer) | $12,000 | 2,000 | 0.5x | Creative role (shapes visual language), but many indie DPs available at this budget. Slightly above Sally in pay but similar powerlessness. |
+| Vivian Gray (production designer) | $10,000 | 2,000 | 0.5x | Designed the key set (Bear's house). Important work, but replaceable at $750K budget level. |
+| Rock Burwell (composer) | $8,000 | 2,000 | 0.5x | Score matters for horror, but composers are hired in post — film already exists, reducing their leverage to near zero. |
+| Cooper Tomlinson (supporting - Ian) | $10,000 | 2,000 | 0.5x | Small supporting role. Highly replaceable at indie level. |
+| Megan Lawless (supporting - Sarah) | $10,000 | 2,000 | 0.5x | Small supporting role. Highly replaceable at indie level. |
+| Volunteer crew (~10 people) | $2,000 | 2,000 | 0.5x | Literally volunteered — they had zero leverage by choice (traded labor for credit/experience). |
+| Andy Richter (supporting - Carter) | $15,000 | 0 | 0x | His outside option ($30K) exceeds his pay. Likely did it for fun/relationships. Implies negative surplus — he subsidized the film. |
+| Jason Blum / Blumhouse (exec producer) | $2,000,000 | 0 | 0x | Came on post-TIFF. His outside option ($5M+ from Blumhouse slate) exceeds his fee. Attached his name for brand/relationship value, not money. |
 
 ### The Power Gap
 
