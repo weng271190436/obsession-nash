@@ -223,8 +223,13 @@ def compute_risk_adjusted_returns(participants, p_failure_pre_tiff=0.85, p_failu
     Compute risk-adjusted returns for each participant.
     
     Risk = P(failure) × amount at stake
-    Amount at stake = outside_option (opportunity cost) or capital invested
-    Return per $ risked = surplus_captured / expected_loss
+    
+    Amount at stake differs by role:
+    - Capital investors (producers): actual money invested, could lose it all
+    - Distributors: acquisition + marketing spend, could flop
+    - Flat-rate labor (crew/cast): $0 real risk — they get paid regardless of outcome
+    - Above-the-line creatives (Barker): opportunity cost of time, but income is
+      partially deferred (backend deal depends on success)
     
     P(failure) differs by when you entered:
     - Pre-TIFF (production phase): ~85% of indie films lose money
@@ -232,7 +237,6 @@ def compute_risk_adjusted_returns(participants, p_failure_pre_tiff=0.85, p_failu
     """
     results = {}
     for name, p in participants.items():
-        # Amount at stake: for investors/producers it's capital, for labor it's opportunity cost
         if p["category"] == "distribution":
             # Focus/Blum entered post-TIFF
             if "Focus" in name:
@@ -240,18 +244,25 @@ def compute_risk_adjusted_returns(participants, p_failure_pre_tiff=0.85, p_failu
             else:
                 amount_at_stake = p["outside_option"]  # opportunity cost
             p_fail = p_failure_post_tiff
-        elif p["category"] == "above_the_line" and "Producer" in name or "Harris" in name:
+        elif p["category"] == "above_the_line" and ("Producer" in name or "Harris" in name):
             # Producers risked actual capital
             amount_at_stake = 750_000  # shared among all producers
             p_fail = p_failure_pre_tiff
+        elif p["category"] == "above_the_line":
+            # Barker: real opportunity cost — 6 months that could've been YouTube income
+            # But also has backend deal, so some pay is success-dependent
+            amount_at_stake = p["outside_option"]  # forgone YouTube income
+            p_fail = p_failure_pre_tiff
         else:
-            # Everyone else risked opportunity cost
-            amount_at_stake = p["outside_option"]  # what they gave up
+            # Crew and cast: flat rate, paid regardless of film success.
+            # They take ZERO financial risk. Their $9K or $25K is guaranteed
+            # whether the film makes $294M or $0.
+            amount_at_stake = 0
             p_fail = p_failure_pre_tiff
         
         expected_loss = p_fail * amount_at_stake
         surplus_captured = max(p["actual_pay"] - p["outside_option"], 0)
-        return_per_dollar = surplus_captured / expected_loss if expected_loss > 0 else float('inf')
+        return_per_dollar = surplus_captured / expected_loss if expected_loss > 0 else float('inf') if surplus_captured > 0 else 0
         
         results[name] = {
             "amount_at_stake": amount_at_stake,
@@ -276,9 +287,20 @@ def print_risk_analysis(risk_results):
     print(f"  {'Name':<45} {'At Stake':>12} {'P(fail)':>8} {'Exp Loss':>12} {'Surplus':>12} {'$/$ risk':>10}")
     print(f"  {'\u2500'*45} {'\u2500'*12} {'\u2500'*8} {'\u2500'*12} {'\u2500'*12} {'\u2500'*10}")
     
-    # Sort by return per dollar risked
-    for name, r in sorted(risk_results.items(), key=lambda x: -x[1]["return_per_dollar_risked"] if x[1]["return_per_dollar_risked"] != float('inf') else -999999):
-        if r["expected_loss"] == 0:
+    # Sort by return per dollar risked (inf at top, then descending, 0-risk at bottom)
+    def sort_key(item):
+        r = item[1]
+        if r["amount_at_stake"] == 0:
+            return -1  # zero risk at bottom
+        elif r["return_per_dollar_risked"] == float('inf'):
+            return 999999
+        else:
+            return r["return_per_dollar_risked"]
+    
+    for name, r in sorted(risk_results.items(), key=sort_key, reverse=True):
+        if r["amount_at_stake"] == 0:
+            ratio_str = "NO RISK"
+        elif r["expected_loss"] == 0:
             ratio_str = "N/A"
         elif r["return_per_dollar_risked"] == float('inf'):
             ratio_str = "\u221e"
@@ -288,18 +310,19 @@ def print_risk_analysis(risk_results):
     
     # Key comparison
     print(f"\n  KEY INSIGHT:")
-    sally_r = risk_results["Sally Choi (art director)"]
+    print(f"    Crew/cast took ZERO financial risk \u2014 paid flat rate regardless of outcome.")
+    print(f"    Their \"risk\" argument is invalid: they get $9K whether film makes $0 or $294M.")
+    print()
     focus_r = risk_results["Focus Features (distributor)"]
     barker_r = risk_results["Curry Barker (writer/director/editor)"]
     harris_r = risk_results["James Harris (producer)"]
     
-    print(f"    Barker:    ${barker_r['return_per_dollar_risked']:.2f} per $1 risked")
-    print(f"    Harris:    ${harris_r['return_per_dollar_risked']:.2f} per $1 risked")
-    print(f"    Focus:     ${focus_r['return_per_dollar_risked']:.2f} per $1 risked")
-    print(f"    Sally:     ${sally_r['return_per_dollar_risked']:.2f} per $1 risked")
-    print(f"\n    If risk justified reward, everyone's $/$ would be similar.")
-    print(f"    Sally's return-on-risk is {barker_r['return_per_dollar_risked']/sally_r['return_per_dollar_risked']:.0f}x worse than Barker's.")
-    print(f"    The 'she didn't take risk' argument explains ~2-3x gap, not {focus_r['surplus_captured']/sally_r['surplus_captured']:.0f}x.")
+    print(f"    Among those who DID take risk:")
+    print(f"      Barker:    ${barker_r['return_per_dollar_risked']:.2f} per $1 risked (opportunity cost of 6 months)")
+    print(f"      Focus:     ${focus_r['return_per_dollar_risked']:.2f} per $1 risked (informed bet, post-TIFF)")
+    print(f"      Harris:    ${harris_r['return_per_dollar_risked']:.2f} per $1 risked (blind bet, real capital)")
+    print(f"\n    Harris took the biggest blind gamble and got HALF of Focus's return.")
+    print(f"    Even among risk-takers, the reward goes to the bottleneck, not the gambler.")
 
 
 def compute_all_implied_bargaining_power(participants, total_pie):

@@ -79,12 +79,13 @@ Sally is underpaid in every scenario.
 
 ## Risk-Adjusted Returns
 
-A common defense: "Sally didn't take risk, so she doesn't deserve more." We can test this by quantifying risk in dollars.
+A common defense: "Sally didn't take risk, so she doesn't deserve more." Let's quantify.
 
 **Risk = P(failure) × amount at stake**
 
 - Pre-TIFF participants face ~85% failure rate (typical indie horror)
 - Post-TIFF participants (Focus, Blum) face ~15% failure rate (film already proven)
+- **Crew and cast took ZERO financial risk** — they're paid flat day rates regardless of whether the film makes $294M or $0
 
 | Participant | Amount at Stake | P(failure) | Expected Loss | Surplus Captured | Return per $1 Risked |
 |---|---|---|---|---|---|
@@ -92,24 +93,19 @@ A common defense: "Sally didn't take risk, so she doesn't deserve more." We can 
 | Focus Features | $44,500,000 (acquisition + P&A) | 15% | $6,675,000 | $97,500,000 | **$14.61** |
 | James Harris | $750,000 (capital invested) | 85% | $637,500 | $4,700,000 | **$7.37** |
 | Other Producers | $750,000 (capital invested) | 85% | $637,500 | $2,950,000 | **$4.63** |
-| Sally Choi | $5,000 (opportunity cost) | 85% | $4,250 | $4,000 | **$0.94** |
-| Michael Johnston | $15,000 (opportunity cost) | 85% | $12,750 | $10,000 | **$0.78** |
-| Andy Richter | $30,000 (opportunity cost) | 85% | $25,500 | $0 | **$0.00** |
-| Volunteer crew | $0 | — | $0 | $2,000 | N/A |
+| Sally Choi | $0 | — | $0 | $4,000 | **NO RISK** |
+| All other crew/cast | $0 | — | $0 | varies | **NO RISK** |
 
 ### What this shows
 
-1. **Barker** got the best risk-adjusted return ($22/\$1) — but he was genuinely irreplaceable
-2. **Focus** got $14.61/\$1 while taking the *least* risk (entered post-proof)
-3. **Harris** (the actual risk-taker who bet $750K) got only $7.37/\$1 — half of Focus's return
-4. **Sally** got **$0.94 per $1 risked** — she literally didn't break even on a risk-adjusted basis
+1. **The "she didn't take risk" crowd is correct** — Sally took zero financial risk. Her $9K was guaranteed.
+2. **But that's not the interesting finding.** Among those who DID take risk:
+   - **Harris** took the biggest blind gamble ($750K, 85% failure) and got **$7.37 per $1 risked**
+   - **Focus** took an informed bet ($44.5M, but only 15% failure) and got **$14.61 per $1 risked**
+   - The entity with the *least* uncertainty got **2x better returns** than the actual gambler
+3. **Risk doesn't explain the distribution even among risk-takers.** The reward goes to the bottleneck, not the gambler.
 
-If risk justified reward, everyone's return-per-dollar would be similar. Instead:
-- Sally's return-on-risk is **24x worse** than Barker's
-- The producers took the biggest gamble and got **half** Focus's risk-adjusted return
-- The "she didn't take risk" argument explains maybe a 2-3x gap, not 24,375x
-
-**The real driver isn't risk — it's bottleneck control.** Who sits between the product and the money? That's who gets paid.
+The argument for crew getting more isn't about risk — it's about the absence of any mechanism for upside participation. They're paid like contractors on a building that turned out to be worth 1000x the construction cost, with no equity stake by design.
 
 ## Run It
 
