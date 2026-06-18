@@ -288,6 +288,41 @@ def print_results(results, surplus, total_outside, total_pie):
     print(f"   Distribution actual:  ${dist_actual:>12,.0f}  →  Nash: ${dist_nash:>12,.0f}  ({dist_nash/dist_actual:.1f}x)")
 
 
+def compute_implied_bargaining_power(participants, total_pie, target_name):
+    """
+    Reverse-engineer a participant's implied bargaining power from their actual pay.
+    
+    Given the actual outcome, what bargaining_power would produce that result?
+    
+    Formula:
+      actual_pay = outside_option + (bp_target / total_bp) * surplus
+      Solving: bp_target = r * total_bp_others / (1 - r)
+      where r = (actual_pay - outside_option) / surplus
+    """
+    total_outside = sum(p["outside_option"] for p in participants.values())
+    surplus = total_pie - total_outside
+    
+    target = participants[target_name]
+    target_surplus_captured = target["actual_pay"] - target["outside_option"]
+    r = target_surplus_captured / surplus  # proportion of surplus captured
+    
+    total_bp_others = sum(
+        p["bargaining_power"] for name, p in participants.items() if name != target_name
+    )
+    
+    # bp_target = r * total_bp_others / (1 - r)
+    implied_bp = r * total_bp_others / (1 - r)
+    
+    return {
+        "implied_bargaining_power": implied_bp,
+        "original_bargaining_power": target["bargaining_power"],
+        "multiplier_vs_original": implied_bp / target["bargaining_power"],
+        "surplus_share_pct": r * 100,
+        "surplus_captured": target_surplus_captured,
+        "total_bp_others": total_bp_others,
+    }
+
+
 if __name__ == "__main__":
     # The "pie" we're splitting is the studio revenue (after theaters take their cut)
     # This is what Focus Features + producers + everyone shares
@@ -296,6 +331,23 @@ if __name__ == "__main__":
     results, surplus, total_outside = compute_nash_bargaining(participants, total_pie)
     print_results(results, surplus, total_outside, total_pie)
     
+    print("\n\n")
+    print("=" * 100)
+    print("IMPLIED BARGAINING POWER (reverse-engineered from actual outcomes)")
+    print("=" * 100)
+    
+    focus_implied = compute_implied_bargaining_power(
+        participants, total_pie, "Focus Features (distributor)"
+    )
+    print(f"\n  Focus Features:")
+    print(f"    Captured {focus_implied['surplus_share_pct']:.1f}% of surplus (${focus_implied['surplus_captured']:,.0f})")
+    print(f"    Original modeled bargaining_power: {focus_implied['original_bargaining_power']}")
+    print(f"    Implied bargaining_power:          {focus_implied['implied_bargaining_power']:.1f}")
+    print(f"    {focus_implied['multiplier_vs_original']:.1f}x higher than modeled")
+    print(f"    Everyone else combined:             {focus_implied['total_bp_others']}")
+    print(f"    Focus is {focus_implied['implied_bargaining_power']/1.5:.0f}x Sally's power")
+    print(f"    Focus is {focus_implied['implied_bargaining_power']/10:.0f}x Barker's power")
+
     print("\n\n")
     print("=" * 100)
     print("SENSITIVITY: What if we weight bargaining power differently?")
