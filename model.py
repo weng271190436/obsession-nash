@@ -218,6 +218,90 @@ def compute_nash_bargaining(participants, total_pie):
     return results, surplus, total_outside
 
 
+def compute_risk_adjusted_returns(participants, p_failure_pre_tiff=0.85, p_failure_post_tiff=0.15):
+    """
+    Compute risk-adjusted returns for each participant.
+    
+    Risk = P(failure) × amount at stake
+    Amount at stake = outside_option (opportunity cost) or capital invested
+    Return per $ risked = surplus_captured / expected_loss
+    
+    P(failure) differs by when you entered:
+    - Pre-TIFF (production phase): ~85% of indie films lose money
+    - Post-TIFF (distribution phase): much lower, film already proven
+    """
+    results = {}
+    for name, p in participants.items():
+        # Amount at stake: for investors/producers it's capital, for labor it's opportunity cost
+        if p["category"] == "distribution":
+            # Focus/Blum entered post-TIFF
+            if "Focus" in name:
+                amount_at_stake = 44_500_000  # acquisition + marketing spend
+            else:
+                amount_at_stake = p["outside_option"]  # opportunity cost
+            p_fail = p_failure_post_tiff
+        elif p["category"] == "above_the_line" and "Producer" in name or "Harris" in name:
+            # Producers risked actual capital
+            amount_at_stake = 750_000  # shared among all producers
+            p_fail = p_failure_pre_tiff
+        else:
+            # Everyone else risked opportunity cost
+            amount_at_stake = p["outside_option"]  # what they gave up
+            p_fail = p_failure_pre_tiff
+        
+        expected_loss = p_fail * amount_at_stake
+        surplus_captured = max(p["actual_pay"] - p["outside_option"], 0)
+        return_per_dollar = surplus_captured / expected_loss if expected_loss > 0 else float('inf')
+        
+        results[name] = {
+            "amount_at_stake": amount_at_stake,
+            "p_failure": p_fail,
+            "expected_loss": expected_loss,
+            "surplus_captured": surplus_captured,
+            "return_per_dollar_risked": return_per_dollar,
+            "category": p["category"],
+        }
+    return results
+
+
+def print_risk_analysis(risk_results):
+    print("\n\n")
+    print("=" * 100)
+    print("RISK-ADJUSTED RETURNS")
+    print("=" * 100)
+    print(f"\n  Base rates: P(failure) = 85% pre-TIFF (typical indie), 15% post-TIFF (proven film)")
+    print(f"  Risk = P(failure) \u00d7 amount at stake")
+    print(f"  Return = surplus captured / expected loss")
+    print()
+    print(f"  {'Name':<45} {'At Stake':>12} {'P(fail)':>8} {'Exp Loss':>12} {'Surplus':>12} {'$/$ risk':>10}")
+    print(f"  {'\u2500'*45} {'\u2500'*12} {'\u2500'*8} {'\u2500'*12} {'\u2500'*12} {'\u2500'*10}")
+    
+    # Sort by return per dollar risked
+    for name, r in sorted(risk_results.items(), key=lambda x: -x[1]["return_per_dollar_risked"] if x[1]["return_per_dollar_risked"] != float('inf') else -999999):
+        if r["expected_loss"] == 0:
+            ratio_str = "N/A"
+        elif r["return_per_dollar_risked"] == float('inf'):
+            ratio_str = "\u221e"
+        else:
+            ratio_str = f"${r['return_per_dollar_risked']:.2f}"
+        print(f"  {name:<45} ${r['amount_at_stake']:>11,.0f} {r['p_failure']:>7.0%} ${r['expected_loss']:>11,.0f} ${r['surplus_captured']:>11,.0f} {ratio_str:>10}")
+    
+    # Key comparison
+    print(f"\n  KEY INSIGHT:")
+    sally_r = risk_results["Sally Choi (art director)"]
+    focus_r = risk_results["Focus Features (distributor)"]
+    barker_r = risk_results["Curry Barker (writer/director/editor)"]
+    harris_r = risk_results["James Harris (producer)"]
+    
+    print(f"    Barker:    ${barker_r['return_per_dollar_risked']:.2f} per $1 risked")
+    print(f"    Harris:    ${harris_r['return_per_dollar_risked']:.2f} per $1 risked")
+    print(f"    Focus:     ${focus_r['return_per_dollar_risked']:.2f} per $1 risked")
+    print(f"    Sally:     ${sally_r['return_per_dollar_risked']:.2f} per $1 risked")
+    print(f"\n    If risk justified reward, everyone's $/$ would be similar.")
+    print(f"    Sally's return-on-risk is {barker_r['return_per_dollar_risked']/sally_r['return_per_dollar_risked']:.0f}x worse than Barker's.")
+    print(f"    The 'she didn't take risk' argument explains ~2-3x gap, not {focus_r['surplus_captured']/sally_r['surplus_captured']:.0f}x.")
+
+
 def compute_all_implied_bargaining_power(participants, total_pie):
     """
     Reverse-engineer every participant's implied bargaining power from their actual pay.
@@ -248,7 +332,6 @@ def compute_all_implied_bargaining_power(participants, total_pie):
             "category": p["category"],
         }
     return results, surplus
-
 
 
 def print_results(results, surplus, total_outside, total_pie):
@@ -396,3 +479,7 @@ if __name__ == "__main__":
     focus3 = results3["Focus Features (distributor)"]
     print(f"   Sally would get:  ${sally3['nash_pay']:>12,.0f} (vs actual ${sally3['actual_pay']:,.0f})")
     print(f"   Focus would get:  ${focus3['nash_pay']:>12,.0f} (vs actual ${focus3['actual_pay']:,.0f})")
+    
+    # Risk-adjusted analysis
+    risk_results = compute_risk_adjusted_returns(participants)
+    print_risk_analysis(risk_results)
