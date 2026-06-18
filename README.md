@@ -23,19 +23,19 @@ Where:
 
 | Participant | Actual Pay | Nash Fair Pay | Ratio |
 |---|---|---|---|
-| Sally Choi (art director) | $9,000 | $3,364,090 | 374x underpaid |
-| Inde Navarrette (lead actress) | $20,000 | $6,730,180 | 337x underpaid |
-| Curry Barker (writer/director/editor) | $100,000 | $22,473,934 | 225x underpaid |
-| All crew combined | $98,741 | $20,228,541 | 205x underpaid |
-| Focus Features (distributor) | $102,500,000 | $38,590,902 | 0.4x — overpaid |
+| Sally Choi (art director) | $9,000 | $1,280,075 | 142x underpaid |
+| Inde Navarrette (lead actress) | $20,000 | $2,562,149 | 128x underpaid |
+| Curry Barker (writer/director/editor) | $100,000 | $8,580,498 | 86x underpaid |
+| All crew combined | $101,000 | $7,724,448 | 76x underpaid |
+| Focus Features (distributor) | $102,500,000 | $102,500,710 | 1.0x — matches |
 
 ### Implied Bargaining Power
 
-Reverse-engineering Focus's actual payout: their implied bargaining power is **114.7** vs everyone else combined at **46**.
+Focus's bargaining power is set to **114.7** (reverse-engineered from actual outcome) vs everyone else combined at **46**.
 
 - Focus is **76x** Sally's power
 - Focus is **11x** Barker's power (the guy who wrote, directed, and edited it)
-- Focus captured **71.4%** of all surplus
+- Focus captures **71.4%** of all surplus
 
 That's the distribution bottleneck quantified.
 

@@ -170,7 +170,7 @@ participants = {
     "Focus Features (distributor)": {
         "actual_pay": FOCUS_NET,  # they keep the distribution profit
         "outside_option": 5_000_000,  # could've bought a different TIFF film
-        "bargaining_power": 15,   # controls access to theaters, marketing machine
+        "bargaining_power": 114.7,  # implied from actual outcome — distribution bottleneck
         "days": 365,
         "category": "distribution",
         "notes": "Paid $14.5M acquisition + ~$30M marketing. Massive leverage.",
