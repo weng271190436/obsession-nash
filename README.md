@@ -77,6 +77,40 @@ What if bargaining power were distributed differently?
 
 Sally is underpaid in every scenario.
 
+## Risk-Adjusted Returns
+
+A common defense: "Sally didn't take risk, so she doesn't deserve more." We can test this by quantifying risk in dollars.
+
+**Risk = P(failure) × amount at stake**
+
+- Pre-TIFF participants face ~85% failure rate (typical indie horror)
+- Post-TIFF participants (Focus, Blum) face ~15% failure rate (film already proven)
+
+| Participant | Amount at Stake | P(failure) | Expected Loss | Surplus Captured | Return per $1 Risked |
+|---|---|---|---|---|---|
+| Curry Barker | $80,000 (opportunity cost) | 85% | $68,000 | $4,920,000 | **$72.35** |
+| Focus Features | $44,500,000 (acquisition + P&A) | 15% | $6,675,000 | $97,500,000 | **$14.61** |
+| James Harris | $750,000 (capital invested) | 85% | $637,500 | $4,700,000 | **$7.37** |
+| Other Producers | $750,000 (capital invested) | 85% | $637,500 | $2,950,000 | **$4.63** |
+| Sally Choi | $5,000 (opportunity cost) | 85% | $4,250 | $4,000 | **$0.94** |
+| Michael Johnston | $15,000 (opportunity cost) | 85% | $12,750 | $10,000 | **$0.78** |
+| Andy Richter | $30,000 (opportunity cost) | 85% | $25,500 | $0 | **$0.00** |
+| Volunteer crew | $0 | — | $0 | $2,000 | N/A |
+
+### What this shows
+
+1. **Barker** got the best risk-adjusted return ($72/\$1) — but he was genuinely irreplaceable
+2. **Focus** got $14.61/\$1 while taking the *least* risk (entered post-proof)
+3. **Harris** (the actual risk-taker who bet $750K) got only $7.37/\$1 — half of Focus's return
+4. **Sally** got **$0.94 per $1 risked** — she literally didn't break even on a risk-adjusted basis
+
+If risk justified reward, everyone's return-per-dollar would be similar. Instead:
+- Sally's return-on-risk is **77x worse** than Barker's
+- The producers took the biggest gamble and got **half** Focus's risk-adjusted return
+- The "she didn't take risk" argument explains maybe a 2-3x gap, not 24,375x
+
+**The real driver isn't risk — it's bottleneck control.** Who sits between the product and the money? That's who gets paid.
+
 ## Run It
 
 ```bash
