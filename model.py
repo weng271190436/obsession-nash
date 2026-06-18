@@ -56,15 +56,15 @@ NET_VALUE = STUDIO_REVENUE - TOTAL_REAL_COSTS  # ~$116.25M
 participants = {
     # --- ABOVE THE LINE ---
     "Curry Barker (writer/director/editor)": {
-        "actual_pay": 100_000,  # estimated (likely kept most of remaining budget after crew)
+        "actual_pay": 5_000_000,  # estimated share of acquisition + backend deal on new project
         "outside_option": 80_000,  # YouTube income + could direct another micro-budget
         "bargaining_power": 10,    # irreplaceable - wrote, directed, edited. THE creative vision
         "days": 180,               # writing + shooting + editing + reshoots (~6 months)
         "category": "above_the_line",
-        "notes": "Triple-threat. No film without him. But pre-success, he was a YouTuber.",
+        "notes": "Triple-threat. No film without him. Likely got biggest slice of acquisition.",
     },
     "James Harris (producer)": {
-        "actual_pay": 75_000,   # estimated producer fee
+        "actual_pay": 5_000_000,  # estimated share of $14.5M acquisition
         "outside_option": 50_000,  # could produce another indie
         "bargaining_power": 7,     # found Barker, assembled financing, took financial risk
         "days": 240,
@@ -72,7 +72,7 @@ participants = {
         "notes": "Tea Shop Productions. Discovered Barker, initiated the project.",
     },
     "Other Producers (Johnson, Mercuri, Viaris)": {
-        "actual_pay": 100_000,  # combined estimated
+        "actual_pay": 3_750_000,  # remaining share of acquisition ($14.5M - $750K prod - Barker - Harris)
         "outside_option": 120_000,  # combined outside options (they have other projects)
         "bargaining_power": 5,
         "days": 200,
