@@ -127,7 +127,7 @@ participants = {
         "notes": "Key creative. Center-composed 'uncomfortable' framing was collaborative.",
     },
     "Sally Choi (art director)": {
-        "actual_pay": 6_741,    # confirmed: $300/day, $6741.36 after tax
+        "actual_pay": 9_000,    # ~$300/day × ~22 days pretax (reported $6,741 after tax)
         "outside_option": 5_000,   # first major credit, one short film before this
         "bargaining_power": 1.5,   # also did set dressing, graphic design, BG acting
         "days": 22,
