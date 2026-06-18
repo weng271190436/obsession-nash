@@ -8,11 +8,11 @@ For a two-party split of surplus S between player A and B:
   A gets: d_A + (b_A / (b_A + b_B)) * S
   B gets: d_B + (b_B / (b_A + b_B)) * S
 
-where d = disagreement point (outside option), b = bargaining power,
+where d = disagreement point (outside option), b = bargaining_power,
 and S = total value - sum of all disagreement points.
 
 For N players, we generalize: each player i gets:
-  d_i + (b_i / sum(b)) * S
+  d_i + (bargaining_power_i / sum(all bargaining_powers)) * S
 
 Bargaining power factors we consider:
   - Replaceability (inverse: fewer substitutes = more power)
@@ -192,7 +192,7 @@ def compute_nash_bargaining(participants, total_pie):
     
     Each player gets: outside_option + (power_share * surplus)
     where surplus = total_pie - sum(outside_options)
-    and power_share = player_power / sum(all_powers)
+    and power_share = bargaining_power / sum(all bargaining_powers)
     """
     total_outside = sum(p["outside_option"] for p in participants.values())
     total_power = sum(p["bargaining_power"] for p in participants.values())
