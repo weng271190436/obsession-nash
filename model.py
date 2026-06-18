@@ -218,39 +218,37 @@ def compute_nash_bargaining(participants, total_pie):
     return results, surplus, total_outside
 
 
-def compute_implied_bargaining_power(participants, total_pie, target_name):
+def compute_all_implied_bargaining_power(participants, total_pie):
     """
-    Reverse-engineer a participant's implied bargaining power from their actual pay.
+    Reverse-engineer every participant's implied bargaining power from their actual pay.
     
-    Given the actual outcome, what bargaining_power would produce that result?
+    For each participant:
+      actual_pay = outside_option + (bp_i / total_bp) * surplus
+      
+    We solve the system: for each i,
+      bp_i is proportional to (actual_pay_i - outside_option_i)
     
-    Formula:
-      actual_pay = outside_option + (bp_target / total_bp) * surplus
-      Solving: bp_target = r * total_bp_others / (1 - r)
-      where r = (actual_pay - outside_option) / surplus
+    Since power shares must sum to 1, and each share = bp_i / total_bp:
+      power_share_i = (actual_pay_i - outside_option_i) / surplus
+    
+    We can set bp_i = actual_pay_i - outside_option_i (unnormalized)
+    and it produces the correct result.
     """
     total_outside = sum(p["outside_option"] for p in participants.values())
     surplus = total_pie - total_outside
     
-    target = participants[target_name]
-    target_surplus_captured = target["actual_pay"] - target["outside_option"]
-    r = target_surplus_captured / surplus  # proportion of surplus captured
-    
-    total_bp_others = sum(
-        p["bargaining_power"] for name, p in participants.items() if name != target_name
-    )
-    
-    # bp_target = r * total_bp_others / (1 - r)
-    implied_bp = r * total_bp_others / (1 - r)
-    
-    return {
-        "implied_bargaining_power": implied_bp,
-        "original_bargaining_power": target["bargaining_power"],
-        "multiplier_vs_original": implied_bp / target["bargaining_power"],
-        "surplus_share_pct": r * 100,
-        "surplus_captured": target_surplus_captured,
-        "total_bp_others": total_bp_others,
-    }
+    results = {}
+    for name, p in participants.items():
+        surplus_captured = max(p["actual_pay"] - p["outside_option"], 0)
+        results[name] = {
+            "implied_bargaining_power": surplus_captured,
+            "original_bargaining_power": p["bargaining_power"],
+            "surplus_captured": surplus_captured,
+            "surplus_share_pct": (surplus_captured / surplus) * 100 if surplus > 0 else 0,
+            "category": p["category"],
+        }
+    return results, surplus
+
 
 
 def print_results(results, surplus, total_outside, total_pie):
@@ -338,18 +336,43 @@ if __name__ == "__main__":
     print("=" * 100)
     print("IMPLIED BARGAINING POWER (reverse-engineered from actual outcomes)")
     print("=" * 100)
+    print(f"\n  If we set each person's bargaining_power = (actual_pay - outside_option),")
+    print(f"  the Nash model reproduces reality exactly. Here's what that looks like:")
+    print()
     
-    focus_implied = compute_implied_bargaining_power(
-        participants, total_pie, "Focus Features (distributor)"
-    )
-    print(f"\n  Focus Features:")
-    print(f"    Captured {focus_implied['surplus_share_pct']:.1f}% of surplus (${focus_implied['surplus_captured']:,.0f})")
-    print(f"    Original modeled bargaining_power: {focus_implied['original_bargaining_power']}")
-    print(f"    Implied bargaining_power:          {focus_implied['implied_bargaining_power']:.1f}")
-    print(f"    {focus_implied['multiplier_vs_original']:.1f}x higher than modeled")
-    print(f"    Everyone else combined:             {focus_implied['total_bp_others']}")
-    print(f"    Focus is {focus_implied['implied_bargaining_power']/1.5:.0f}x Sally's power")
-    print(f"    Focus is {focus_implied['implied_bargaining_power']/10:.0f}x Barker's power")
+    implied_results, impl_surplus = compute_all_implied_bargaining_power(participants, total_pie)
+    
+    # Normalize: set Sally = 1 as baseline for readability
+    sally_bp = implied_results["Sally Choi (art director)"]["implied_bargaining_power"]
+    
+    categories = ["above_the_line", "cast", "crew", "distribution"]
+    cat_labels = {
+        "above_the_line": "ABOVE THE LINE",
+        "cast": "CAST",
+        "crew": "CREW",
+        "distribution": "DISTRIBUTION",
+    }
+    
+    for cat in categories:
+        print(f"\n  {cat_labels[cat]}:")
+        for name, r in sorted(implied_results.items(), key=lambda x: -x[1]["implied_bargaining_power"]):
+            if r["category"] != cat:
+                continue
+            normalized = r["implied_bargaining_power"] / sally_bp if sally_bp > 0 else 0
+            print(f"    {name:<45} bp = {r['implied_bargaining_power']:>12,.0f}  ({normalized:>8.1f}x Sally)  share = {r['surplus_share_pct']:.2f}%")
+    
+    # Summary
+    total_implied = sum(r["implied_bargaining_power"] for r in implied_results.values())
+    focus_bp = implied_results["Focus Features (distributor)"]["implied_bargaining_power"]
+    barker_bp = implied_results["Curry Barker (writer/director/editor)"]["implied_bargaining_power"]
+    all_others = total_implied - focus_bp
+    
+    print(f"\n  SUMMARY:")
+    print(f"    Focus implied bp:        {focus_bp:>12,.0f}  ({focus_bp/sally_bp:.0f}x Sally)")
+    print(f"    Barker implied bp:       {barker_bp:>12,.0f}  ({barker_bp/sally_bp:.0f}x Sally)")
+    print(f"    Sally implied bp:        {sally_bp:>12,.0f}  (1x, baseline)")
+    print(f"    Everyone else combined:  {all_others:>12,.0f}")
+    print(f"    Focus / everyone else:   {focus_bp/all_others:.1f}x")
 
     print("\n\n")
     print("=" * 100)
