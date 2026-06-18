@@ -41,10 +41,19 @@ With Sally Choi as the baseline (1x):
 | Focus Features (distributor) | $102,500,000 | 97,500,000 | 24,375x |
 | James Harris (producer) | $5,000,000 | 4,950,000 | 1,238x |
 | Curry Barker (writer/director/editor) | $5,000,000 | 4,920,000 | 1,230x |
-| Other Producers | $3,750,000 | 3,630,000 | 908x |
-| Sally Choi (art director) | $9,000 | 4,000 | 1x |
-| Inde Navarrette (lead actress) | $20,000 | 8,000 | 2x |
+| Other Producers (Johnson, Mercuri, Viaris) | $3,750,000 | 3,630,000 | 908x |
+| Other paid crew (~15 people) | $60,000 | 15,000 | 3.8x |
+| Michael Johnston (lead - Bear) | $25,000 | 10,000 | 2.5x |
+| Inde Navarrette (lead - Nikki) | $20,000 | 8,000 | 2.0x |
+| Sally Choi (art director) | $9,000 | 4,000 | 1.0x |
+| Taylor Clemons (cinematographer) | $12,000 | 2,000 | 0.5x |
+| Vivian Gray (production designer) | $10,000 | 2,000 | 0.5x |
+| Rock Burwell (composer) | $8,000 | 2,000 | 0.5x |
+| Cooper Tomlinson (supporting - Ian) | $10,000 | 2,000 | 0.5x |
+| Megan Lawless (supporting - Sarah) | $10,000 | 2,000 | 0.5x |
 | Volunteer crew (~10 people) | $2,000 | 2,000 | 0.5x |
+| Andy Richter (supporting - Carter) | $15,000 | 0 | 0x |
+| Jason Blum / Blumhouse (exec producer) | $2,000,000 | 0 | 0x |
 
 ### The Power Gap
 
